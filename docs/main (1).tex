@@ -35,20 +35,21 @@
 \vspace{-1.4cm}
 
 \section{Challenge Tackled}
-After a disaster incident, traditional insurance workflows often collapse under the weight of slow paperwork and inaccessible sites. Victims and response agencies face long delays before claims are processed or aid is dispatched, primarily because assessing damage requires physical verification. This project draws inspiration from Google DeepMind’s AlphaEarth initiative, which demonstrated how large-scale geospatial intelligence can reshape risk perception and disaster management. By integrating satellite imagery, terrain information, and real-time weather data, this work automates geo-risk prediction—enabling faster response, early alerts, and fairer insurance claim assessment.
+After a disaster, slow paperwork delays insurance claims and heightens distress for victims and their families. Physical damage assessment is often impossible immediately due to inaccessible sites, significantly prolonging response times. 
+Inspired by Google DeepMind’s AlphaEarth initiative, this project leverages satellite imagery, terrain data, and real-time weather to deliver instant geo-risk estimation.  Currently trained on synthetic data, the model generates risk scores based on location’s weather and environmental conditions.
 
 \section{Approach and Model}
-The system is centered around a compact deep learning architecture called \textbf{CompactGeoEmbed}, a lightweight CNN derived from MobileNetV2. It fuses optical satellite imagery, elevation maps, and environmental factors such as precipitation, humidity, and wind speed to estimate a composite risk score for any coordinate. The inference pipeline retrieves Sentinel imagery and elevation data through Google Earth Engine, processes it locally using a quantized PyTorch model under 50MB, and presents the results via a Gradio web interface hosted on Hugging Face Spaces. The design supports CPU-only inference, ensuring low deployment cost and accessibility.
+The system is centered around a compact deep learning architecture called \textbf{CompactGeoEmbed}, a lightweight CNN derived from MobileNetV2. It fuses optical satellite imagery, elevation maps, and environmental factors such as precipitation, humidity, and wind speed to estimate a composite risk score for any coordinate. The inference pipeline retrieves Sentinel imagery and elevation data through Google Earth Engine, processes it locally using a quantized PyTorch model under 10MB, and presents the results via a Gradio web interface hosted on Hugging Face Spaces. The design supports CPU-only inference, ensuring low deployment cost and accessibility.
 
 \section{Data and Implementation}
 The model was trained on synthetically curated geospatial data combining open datasets such as MODIS (fire burn area), SMAP (soil moisture), and SRTM (terrain elevation). Although limited by API quotas and inconsistent spatial resolutions, careful sampling, caching, and cross-sensor alignment enabled construction of a functional dataset suitable for experimentation. The model generalizes well across diverse landscapes and maintains high consistency under quantized inference.
 
 \section{Challenges}
-Development revealed several difficulties, including memory overflow during large-area queries on Earth Engine, harmonizing multi-sensor resolutions (250m vs. 1km), and a general scarcity of open hazard datasets from agencies like UNEP or SEDAC. Despite these limitations, the framework achieved stable, end-to-end inference using only geographic coordinates and weather data.
+Development revealed several difficulties, including user memory limit while quering on Earth Engine for sampling and getting a balanced distribution of data, harmonizing multi-sensor resolutions (250m vs. 1km), and a general scarcity of open hazard datasets from agencies like UNEP or SEDAC. Extreme denial rate while fetching forecast data from https://open-meteo.com/ free api .Despite these limitations, the model learned to predict stable inference points, end-to-end inference using only geographic coordinates and weather data.
 
 \section{Time Allocation}
 Data preparation and testing: 8 hours.  
-Model training and visualization: 2 hours.  
+Model training and visualization: 3.5 hours.  
 Deployment and hosting optimization: 2.5 hours.  
 Code structuring and documentation: 2 hours.
 
