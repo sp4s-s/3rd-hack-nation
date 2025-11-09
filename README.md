@@ -8,6 +8,9 @@ sdk_version: "4.44.0"
 app_file: app.py
 pinned: false
 ---
+[Dont Upload Pictures]
+
+https://huggingface.co/spaces/Pingsz/3rd-hack-nation
 
 # 🌍 Geo-Risk Predictor
 
